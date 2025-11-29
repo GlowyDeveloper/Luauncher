@@ -2,7 +2,7 @@
 name = "luauncher"
 version = "1.2.0"
 description = "A Lua Launcher"
-authors = ["GlowyGhost"]
+authors = ["GlowyDev"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
