@@ -246,7 +246,7 @@ async fn update() -> Result<String, String> {
         return Ok("No Internet".to_string());
     }
 
-    let url = "https://api.github.com/repos/Glowwy-Dev/Luauncher/releases/latest";
+    let url = "https://api.github.com/repos/GlowyDeveloper/Luauncher/releases/latest";
 
     let client = reqwest::Client::new();
     let mut res = client
