@@ -93,7 +93,6 @@ fn close_luauncher(path: String) -> Result<(), Box<dyn std::error::Error>> {
 
     #[cfg(target_os = "windows")]
     {
-        // Extract just the file name (e.g., "launcher.exe")
         let process_name = Path::new(&path)
             .file_name()
             .and_then(|n| n.to_str())
@@ -145,10 +144,8 @@ fn is_folder_unlocked(path: String) -> bool {
     let orig = Path::new(&path);
     let tmp = orig.with_extension("tmp_check_lock");
 
-    // Try to rename the folder
     match fs::rename(orig, &tmp) {
         Ok(_) => {
-            // Rename back to original
             let _ = fs::rename(&tmp, orig);
             true
         }
@@ -159,7 +156,7 @@ fn install_update(old_path: String) -> Result<(), Box<dyn std::error::Error>> {
     print!("\rPreparing to download...");
     let client = Client::new();
     let release: Release = client
-        .get("https://api.github.com/repos/Glowwy-Dev/Luauncher/releases/latest")
+        .get("https://api.github.com/repos/GlowyDeveloper/Luauncher/releases/latest")
         .header("User-Agent", "Luauncher-Updater")
         .send()?
         .json()?;
@@ -288,13 +285,13 @@ fn update(old_path: String) -> Result<(), Box<dyn std::error::Error>> {
     stdout().flush()?;
 
     #[cfg(target_os = "windows")]
-    let path_com = env!("LOCALAPPDATA").to_string() + "\\com.glowyghost.luauncher";
+    let path_com = env!("LOCALAPPDATA").to_string() + "\\com.glowydev.luauncher";
 
     #[cfg(target_os = "linux")]
-    let path_com = std::env::var("HOME").unwrap_or_default() + "/.local/share/com.glowyghost.luauncher";
+    let path_com = std::env::var("HOME").unwrap_or_default() + "/.local/share/com.glowydev.luauncher";
 
     #[cfg(target_os = "macos")]
-    let path_com = std::env::var("HOME").unwrap_or_default() + "/Library/Application Support/com.glowyghost.luauncher";
+    let path_com = std::env::var("HOME").unwrap_or_default() + "/Library/Application Support/com.glowydev.luauncher";
 
     loop {
         if is_folder_unlocked(path_com.clone()) {
@@ -334,7 +331,7 @@ fn update(old_path: String) -> Result<(), Box<dyn std::error::Error>> {
     println!();
     stdout().flush()?;
 
-    //com.glowyghost.luauncher deletion
+    //com.glowydev.luauncher deletion
     stdout().flush()?;
     println!();
 
@@ -387,8 +384,8 @@ fn update(old_path: String) -> Result<(), Box<dyn std::error::Error>> {
     println!();
     println!();
 
-    println!("MIT License:");
-    println!("Copyright (c) 2025 Glowwy-Dev
+    println!("MIT License: ");
+    println!("Copyright (c) 2025 GlowyDeveloper
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the \"Software\"), to deal
@@ -473,13 +470,13 @@ fn uninstall(old_path: String) -> Result<(), Box<dyn std::error::Error>> {
     stdout().flush()?;
 
     #[cfg(target_os = "windows")]
-    let path_com = env!("LOCALAPPDATA").to_string() + "\\com.glowyghost.luauncher";
+    let path_com = env!("LOCALAPPDATA").to_string() + "\\com.glowydev.luauncher";
 
     #[cfg(target_os = "linux")]
-    let path_com = std::env::var("HOME").unwrap_or_default() + "/.local/share/com.glowyghost.luauncher";
+    let path_com = std::env::var("HOME").unwrap_or_default() + "/.local/share/com.glowydev.luauncher";
 
     #[cfg(target_os = "macos")]
-    let path_com = std::env::var("HOME").unwrap_or_default() + "/Library/Application Support/com.glowyghost.luauncher";
+    let path_com = std::env::var("HOME").unwrap_or_default() + "/Library/Application Support/com.glowydev.luauncher";
 
     loop {
         if is_folder_unlocked(path_com.clone()) {
@@ -498,7 +495,7 @@ fn uninstall(old_path: String) -> Result<(), Box<dyn std::error::Error>> {
 
     let mut errored = false;
 
-    //com.glowyghost.luauncher deletion
+    //com.glowydev.luauncher deletion
     stdout().flush()?;
     println!();
 
@@ -567,7 +564,7 @@ fn uninstall(old_path: String) -> Result<(), Box<dyn std::error::Error>> {
         }
         Err(e) => {
             if e.to_string().contains("Directory does not exist") {
-                print!("\rApplication doesn't exist. This should not happen. If you can reliably reproduce this issue, please report it at https://github.com/GlowyGhost/Luauncher/issues");
+                print!("\rApplication doesn't exist. This should not happen. If you can reliably reproduce this issue, please report it at https://github.com/GlowyDeveloper/Luauncher/issues");
                 errored = true;
             } else {
                 print!("\rFailed to delete app: {}", e);
